@@ -1,0 +1,144 @@
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400');
+
+body{
+    margin: 0;
+    font-family: roboto;
+}
+
+.main-container{
+    display: flex;
+}
+
+.left-section{
+    position: relative;
+    width: 42%;
+    height: 100vh;
+}
+
+.right-section{
+    position: relative;
+    width: 58%;
+    height: 100vh;
+    background-image: url('../img/right_section_bg.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+h2{
+    color: #999;
+    font-size: 36px;
+    font-weight: 300;
+}
+
+
+/*-------------------Left section styles here---------------------------*/
+.logo{
+    position: absolute;
+    top: 30px;
+    left: calc(50% - 100px);
+    display: inline-block;
+    height: 60px;
+    width: 200px;
+    background-image: url(../img/logo.png);
+}
+
+.form-container{
+    position: relative;
+    top: 100px;
+    height: calc(100% - 100px);
+}
+
+
+.login-form-container{
+    position: absolute;
+    display: inline-block;
+    top: calc(50% - 50px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.login-form-container  input:not([type="submit"]){
+    display: block;
+    margin-bottom: 25px;
+    border: 1px solid #ccc;
+    width: 260px;
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #555;
+}
+
+.login-form-container  input::placeholder{
+    color: #999;
+}
+
+#error-text{
+    margin-top: -10px;
+    font-weight: 300;
+    font-size: 14px;
+    color: rgb(190, 48, 48);
+}
+
+.login-form-container  input[type="submit"]{
+    display: inline-block;
+    font-size: 14px;
+    color: #fff;
+    background: #74769B;
+    border-radius: 4px;
+    padding: 12px 40px;
+    border: none;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.login-form-container a{
+    color: #6790C1;
+    font-weight: 400;
+}
+
+/*-------------Right section styles here------------------*/
+
+.text-and-buttons-container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    max-width: 60%;
+    transform: translate(-50%, -50%);
+}
+
+#caption-text{
+    text-align: center;
+    font-size: 48px;
+    color: #fff;
+    font-weight: 300;
+}
+
+.buttons-container{
+    text-align: center;
+}
+
+.buttons-container > button{
+    display: inline-block;
+    padding: 15px 35px;
+    color: #fff;
+    background: none;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-right: 20px;
+    border: 2px solid #FF0091;
+    color: #FF0091;
+    transition: all 0.2s ease;
+}
+
+.btn-active{
+    background: #FF0091 !important;
+    color: #fff !important;
+}
+
+.buttons-container  button:hover{
+    background: #FF0091;
+    color: #fff;
+    cursor: pointer;
+}
