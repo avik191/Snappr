@@ -18,6 +18,7 @@
 
 
    <context:component-scan base-package = "com.app.snappr" />
+     <context:property-placeholder location="classpath:jdbc.properties" />
    
 	<mvc:annotation-driven/>
 	<mvc:resources mapping="/resources/**" location="/assets/" />
@@ -34,7 +35,36 @@
 		class="org.springframework.web.multipart.support.StandardServletMultipartResolver"/>
       
     
-    
+    <!-- Step 1: Define Database Datasource/connection pool -->
+	<beans:bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<beans:property name="driverClassName" value="${jdbc.driverName}" />
+		<beans:property name="url" value="${jdbc.databaseurl}" />
+		<beans:property name="username" value="${jdbc.username}" />
+		<beans:property name="password" value="${jdbc.password}" />
+	</beans:bean>
+
+	<!-- Step 2: Setup Hibernate session factory -->
+	<beans:bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<beans:property name="dataSource" ref="dataSource" />
+		<beans:property name="packagesToScan" value="com.app.snappr.Entity" />
+		<beans:property name="hibernateProperties">
+			<beans:props>
+				<beans:prop key="hibernate.dialect">${jdbc.dialect}</beans:prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</beans:props>
+		</beans:property>
+	</beans:bean>
+
+	<!-- Step 3: Setup Hibernate transaction manager -->
+	<beans:bean id="transactionManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<beans:property name="sessionFactory" ref="sessionFactory" />
+	</beans:bean>
+
+	<!-- Step 4: Enable configuration of transactional behavior based on annotations -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
    
  
 </beans>
