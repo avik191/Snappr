@@ -24,4 +24,32 @@ public class UserDAOImp implements UserDAO{
 		}
 	}
 
+	@Override
+	public boolean addUser(User user) {
+		// TODO Auto-generated method stub
+		try {
+			sessionFactory.getCurrentSession().save(user);
+			return true;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public boolean updateUser(User user) {
+		// TODO Auto-generated method stub
+		try {
+			sessionFactory.getCurrentSession().update(user);
+			return true;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 }

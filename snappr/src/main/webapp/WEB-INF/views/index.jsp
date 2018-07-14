@@ -58,12 +58,16 @@ function validateForm() {
 						
 						<input	type="password" placeholder="Password" name="pass" onkeydown="document.getElementById('error-text').style.display = 'none' "  required>
 														
-							<c:if test="${not empty message }">
-								<p id="error-text">${message }</p>
+							<c:if test="${not empty error_message }">
+								<p id="error-text">${error_message }</p>
 							</c:if>
 						<input type="submit" value="Login"> <a href="./">Forgot
 							password?</a>
 					</form>
+					</br></br>
+					<c:if test="${not empty message }">
+								<p id="error-text">${message }</p>
+					</c:if>
 				</div>
 
 			</div>
@@ -77,7 +81,7 @@ function validateForm() {
 					family.</p>
 				<div class="buttons-container">
 					<button class="btn btn-login btn-active">Login</button>
-					<button class="btn btn-signup">Sign Up</button>
+					<button class="btn btn-signup"><a href="${contextRoot }/signup">Sign Up</a></button>
 				</div>
 			</div>
 		</div>
