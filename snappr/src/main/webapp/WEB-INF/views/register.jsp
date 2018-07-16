@@ -35,6 +35,13 @@
 					placeholder="Name shown to others" />
 				<p id="error-text"><sf:errors cssClass="error-text" path="name" element="em" style="color:rgb(190, 48, 48)"/></p>
 					
+				<label for="name">Username</label>
+				<sf:input type="text" id="name" path="username"
+					placeholder="your username" />
+				<p id="error-text"><sf:errors cssClass="error-text" path="username" element="em" style="color:rgb(190, 48, 48)"/></p>
+						
+				
+					
 				<label for="email">Email</label>
 				<sf:input type="email" id="email" path="email"
 					placeholder="you@example.com" />

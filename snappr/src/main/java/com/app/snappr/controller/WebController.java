@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.app.snappr.Entity.FileUploadUtility;
@@ -108,24 +110,44 @@ public class WebController {
 	
 	
 	@RequestMapping(value="/handleLogin")
-	public String handlelogin(@RequestParam("email") String email,@RequestParam("pass") String pass)
+	public String handlelogin(@RequestParam("email") String email,@RequestParam("pass") String pass,HttpServletRequest request )
 	{
 		User user = userService.getUserFromEmail(email);
 		if(user!=null)
 		{
 			if(pass.equals(user.getPassword()))
 			{
-				return "redirect:/basePage";
+				HttpSession session = request.getSession(true);
+				session.setAttribute("loggedUser",user);
+				session.setAttribute("isLoggedIn", true);
+				return "redirect:/homePage";
 			}
 		}
 		return "redirect:/index?login=error";
 	}
 	
 	
-	@RequestMapping(value="/basePage")
+	@RequestMapping(value="/homePage")
 	public ModelAndView showBasePage()
 	{
 		ModelAndView mv = new ModelAndView("basepage");
+		mv.addObject("showFeeds",true);
+		mv.addObject("title","Feeds");
 		return mv;
+	}
+	
+	@RequestMapping(value="/testPage")
+	public ModelAndView test()
+	{
+		ModelAndView mv = new ModelAndView("test");
+		return mv;
+	}
+	
+	@RequestMapping(value="/test/ajax")
+	@ResponseBody
+	public List<User> fetchUser()
+	{
+		List<User> user = userService.getAllUsers();
+		return user;
 	}
 }

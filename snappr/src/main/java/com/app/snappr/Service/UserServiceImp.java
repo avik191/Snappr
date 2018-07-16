@@ -1,5 +1,7 @@
 package com.app.snappr.Service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +31,12 @@ public class UserServiceImp implements UserService{
 	public boolean updateUser(User user) {
 		// TODO Auto-generated method stub
 		return userDAO.updateUser(user);
+	}
+
+	@Override
+	public List<User> getAllUsers() {
+		// TODO Auto-generated method stub
+		return userDAO.getAllUsers();
 	}
 
 }
