@@ -80,8 +80,8 @@ function validateForm() {
 				<p id="caption-text">Share pictures with your friends and
 					family.</p>
 				<div class="buttons-container">
-					<button class="btn btn-login btn-active">Login</button>
-					<button class="btn btn-signup"><a href="${contextRoot }/signup">Sign Up</a></button>
+					<button class="btn btn-login btn-active" onclick="window.location.assign('${contextRoot }/index')">Login</button>
+					<button class="btn btn-signup" onclick="window.location.assign('${contextRoot }/signup')">Sign Up</button>
 				</div>
 			</div>
 		</div>

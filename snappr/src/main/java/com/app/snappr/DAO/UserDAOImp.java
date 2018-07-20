@@ -1,5 +1,7 @@
 package com.app.snappr.DAO;
 
+import java.util.List;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -52,4 +54,18 @@ public class UserDAOImp implements UserDAO{
 		}
 	}
 
+	@Override
+	public List<User> getAllUsers() {
+		// TODO Auto-generated method stub
+		String sql = "FROM User";
+		try {
+			return sessionFactory.getCurrentSession().createQuery(sql,User.class).list();
+			}catch(Exception e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	
 }

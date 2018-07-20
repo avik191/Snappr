@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400');
+
+body{
+    margin: 0;
+}
+
+.header-main-container{
+    position: fixed;
+    left: 200px;
+    top: 0px;
+    width: calc(100% - 200px);
+    padding: 15px 0px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.04);
+}
+
+.header{
+    display: flex;
+    width: 85%;
+    margin: auto;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-logo{
+    width: 160px;
+}
+
+.header-logo img{
+    width: 100%;
+}
+
+.header-search{
+    width: 350px;
+}
+
+.header-search input{
+    width: 100%;
+    padding: 10px 8px;
+    border: 1px solid #dadada;
+    border-radius: 3px;
+    color: #777;
+    font-size: 14px;
+}
+
+.header-search input::placeholder{
+    color: #999;
+}
+
+.header-settings{
+    position: relative;
+    font-family: roboto;
+    font-weight: 300;
+    font-size: 18px;
+    color: #FFBED5;
+    cursor: pointer;
+    width: 110px;
+}
+
+.header-settings::after, .header-settings::before{
+    content: "";
+    position: absolute;
+    display: block;
+    height: 10px;
+    width: 2px;
+    background: #FFBED5;
+}
+
+.header-settings::before{
+    top: 7px;
+    left: 80px;
+    transform: rotate(-40deg);
+}
+
+.header-settings::after{
+    top: 7px;
+    left: 86px;
+    transform: rotate(40deg);
+}
+
+.header-settings ul{
+    display: none;
+    background: #fff;
+    position: absolute;
+    list-style-type: none;
+    margin: 0;
+    padding: 5px 10px;
+    margin-top: 16px;
+    box-shadow: 0px 4px 40px 0px rgba(0, 0, 0, 0.05);
+    cursor: auto;
+}
+
+.header-settings:focus, .header-settings ul:focus{
+    outline: none;
+}
+
+.header-settings ul li{
+    margin: 6px 12px;
+}
+
+.header-settings ul a{
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 300;
+    color: #bbb;
+}
+
+.header-settings ul::after{
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: calc(50% - 10px);
+    display: block;
+    box-sizing: border-box;
+    border-bottom: 10px solid #fff;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    width: 20px;
+}

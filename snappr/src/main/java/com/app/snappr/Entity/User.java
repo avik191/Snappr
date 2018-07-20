@@ -31,11 +31,53 @@ public class User {
 	
 	@NotBlank(message="password should not be blank")
 	private String password;
-	private String code;
+	private String path;
 	@Transient
 	private MultipartFile file;
+	
+	private int posts;
+	private int followers;
+	private int following;
+	
+	@NotBlank(message="username should not be blank")
+	private String username;
+	
+	
+	
 		
 	
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public int getPosts() {
+		return posts;
+	}
+
+	public void setPosts(int posts) {
+		this.posts = posts;
+	}
+
+	public int getFollowers() {
+		return followers;
+	}
+
+	public void setFollowers(int followers) {
+		this.followers = followers;
+	}
+
+	public int getFollowing() {
+		return following;
+	}
+
+	public void setFollowing(int following) {
+		this.following = following;
+	}
+
 	public MultipartFile getFile() {
 		return file;
 	}
@@ -46,7 +88,7 @@ public class User {
 
 	public User() {
 		//this.code = "PRD" + UUID.randomUUID().toString().substring(26).toUpperCase();
-		this.code = "default_avatar";
+		this.path = "http://res.cloudinary.com/avik191/image/upload/v1531633312/Snappr/Profile_Pic/default_avatar.png";
 	}
 	
 	public int getId() {
@@ -73,8 +115,8 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getCode() {
-		return code;
+	public String getPath() {
+		return path;
 	}
 	
 	
