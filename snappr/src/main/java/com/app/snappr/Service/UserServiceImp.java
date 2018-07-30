@@ -20,6 +20,12 @@ public class UserServiceImp implements UserService{
 		// TODO Auto-generated method stub
 		return userDAO.getUserFromEmail(email);
 	}
+	
+	@Override
+	public User getUserFromId(int id) {
+		// TODO Auto-generated method stub
+		return userDAO.getUserFromId(id);
+	}
 
 	@Override
 	public boolean addUser(User user) {
@@ -34,9 +40,9 @@ public class UserServiceImp implements UserService{
 	}
 
 	@Override
-	public List<User> getAllUsers() {
+	public List<User> getAllUsers(int start,int limit) {
 		// TODO Auto-generated method stub
-		return userDAO.getAllUsers();
+		return userDAO.getAllUsers(start,limit);
 	}
 
 }

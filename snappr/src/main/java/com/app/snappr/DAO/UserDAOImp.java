@@ -25,6 +25,18 @@ public class UserDAOImp implements UserDAO{
 			return null;
 		}
 	}
+	
+	@Override
+	public User getUserFromId(int id) {
+		String sql = "FROM User where id = :id";
+		try {
+			return sessionFactory.getCurrentSession().createQuery(sql,User.class).setParameter("id",id).getSingleResult();
+			}catch(Exception e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 	@Override
 	public boolean addUser(User user) {
@@ -55,11 +67,11 @@ public class UserDAOImp implements UserDAO{
 	}
 
 	@Override
-	public List<User> getAllUsers() {
+	public List<User> getAllUsers(int start,int limit) {
 		// TODO Auto-generated method stub
-		String sql = "FROM User";
+		String sql = "FROM User ORDER BY id DESC";
 		try {
-			return sessionFactory.getCurrentSession().createQuery(sql,User.class).list();
+			return sessionFactory.getCurrentSession().createQuery(sql,User.class).setFirstResult(start).setMaxResults(limit).list();
 			}catch(Exception e)
 		{
 			e.printStackTrace();

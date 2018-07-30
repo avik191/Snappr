@@ -1,0 +1,275 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400');
+
+body{
+    margin: 0;
+}
+
+
+.posts-main-container{
+    position: relative;
+    top: 120px;
+    left: 200px;
+    width: calc(100% - 200px);
+}
+
+.posts-wrapper{
+    position: relative;
+    width: 800px;
+    max-width: 90%;
+    margin: auto;
+}
+
+.posts-heading h2{
+    font-family: roboto;
+    color: #919193;
+    font-weight: 300;
+    font-size: 24px;
+}
+
+.posts-container{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.post{
+    position: relative;
+    width: calc(25% - 10px);
+    overflow: hidden;
+    margin: 5px;
+    box-sizing: border-box;
+}
+
+
+.post-transparent-image{
+    width: 100%;
+    position: relative;
+}
+
+.post-user-image{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    transform: translate(-50%,-50%);
+    transition: all 0.4s ease;
+}
+
+.post:hover{
+    cursor: pointer;
+}
+
+.post:hover .post-user-image{
+    transform: translate(-50%, -50%) scale(1.15, 1.15);
+}
+
+.post-loader{
+    margin: auto;
+    width: 48px;
+    margin-top: 70px;
+    margin-bottom: 70px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.post-loader div{
+    height: 12px;
+    width: 12px;
+    background: #da8da8;
+    border-radius: 50%;
+    animation: jump 1.6s linear infinite;
+    opacity: 0.7;
+}
+
+.post-loader div:nth-child(1){
+    animation-delay: 0s;
+}
+
+.post-loader div:nth-child(2){
+    animation-delay: 0.5s;
+}
+
+.post-loader div:nth-child(3){
+    animation-delay: 1s;
+}
+
+@keyframes jump{
+    0%, 20%{
+        transform: translate(0);
+    }
+    10%{
+        transform: translateY(-10px);
+    }
+}
+
+/*----------Image Popup styles here-----------------*/
+
+.post-popup-overlay{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.8);
+    width: 100%;
+    height: 100vh;
+}
+
+.post-popup-closer{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+}
+
+.post-popup-container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 900px;
+    height: 600px;
+    transform: translate(-50%, -50%);
+    display: flex;
+}
+
+.post-popup-left-section{
+    position: relative;
+    background: #000;
+    width: 600px;
+    height: 600px;
+}
+
+.post-popup-image{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: calc(100% - 20px);
+    max-height: calc(100% - 20px);
+}
+
+.post-popup-right-section{
+    position: relative;
+    width: 300px;
+    background: #fff;
+    height: 600px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+
+.post-image-caption-container{
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f5f5f5;
+    height: 120px;
+    overflow: auto;
+}
+
+.post-image-user-name{
+    font-family: roboto;
+    color: #da8da8;
+    margin-bottom: 8px;
+    font-size: 18px;
+}
+
+.post-image-caption{
+    font-family: roboto;
+    font-weight: 300;
+    color: #999;
+    line-height: 18px;
+    font-size: 14px;
+}
+
+.post-image-date{
+    margin-top: 8px;
+    font-size: 12px;
+    font-weight: 300;
+    font-family: roboto;
+    color: #da8da8;
+}
+
+.post-image-comments-container{
+    margin-top: 10px;
+    height: calc(100% - 270px);
+    margin-bottom: 10px;
+    overflow: auto;
+}
+
+.post-comment{
+    box-sizing: border-box;
+    padding: 5px 2px;
+}
+
+.post-comment-hidden{
+    display: none;
+}
+
+.post-comment-username{
+    font-family: roboto;
+    color: #444;
+    font-weight: 400;
+    font-size: 14px;
+    margin-right: 6px;
+}
+.post-comment-text{
+    font-family: roboto;
+    color: #666;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.post-comment-delete{
+    font-family: roboto;
+    color: #21a1e1;
+    font-weight: 300;
+    font-size: 12px;
+    text-decoration: underline;
+    margin-top: 2px;
+    cursor: pointer;
+    display: block;
+    width: 50px;
+}
+
+.post-like-comment-button-container{
+    display: flex;
+}
+
+.post-like-comment-button-container img{
+    height: 32px;
+    width: 32px;
+    cursor: pointer;
+}
+
+.post-like-button{
+    margin-right: 20px;
+}
+
+.post-like-count{
+    text-align: center;
+    color: #666;
+    font-weight: 400;
+    font-family: roboto;
+    font-size: 12px;
+}
+
+.post-comment-button img{
+    transform: rotateY(180deg);
+}
+
+.post-comment-box-container{
+    position: absolute;
+    bottom: 20px;
+    width: 250px;
+}
+
+.post-comment-box-container input{
+    display: block;
+    width: 100%;
+    font-family: roboto;
+    padding: 10px 5px;
+    border: none;
+    border-bottom: 2px solid #da8da8;
+    color: #666;
+}

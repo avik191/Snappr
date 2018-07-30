@@ -9,7 +9,8 @@ public interface UserService {
 	public User getUserFromEmail(String email);
 	public boolean addUser(User user);
 	public boolean updateUser(User user);
-	public List<User> getAllUsers();
+	public List<User> getAllUsers(int start,int limit);
+	User getUserFromId(int id);
 
 	
 }

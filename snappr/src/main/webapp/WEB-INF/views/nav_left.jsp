@@ -36,8 +36,8 @@
             </div>
             <div id="Posts" class="nav-left-link">
                 <img src="${images }/posts_icon.png" class="nav-left-icon" alt="Post icon">
-                <a href="" class="nav-link-count nav-left-link-text"> <%= user.getPosts() %></a>
-                <a href="" class="nav-link-label nav-left-link-text">Posts</a>
+                <a href="${contextRoot }/postPage" class="nav-link-count nav-left-link-text"> <%= user.getPosts() %></a>
+                <a href="${contextRoot }/postPage" class="nav-link-label nav-left-link-text">Posts</a>
             </div>
             <div id="Followers" class="nav-left-link ">
                 <img src="${images }/followers-icon.png" class="nav-left-icon" alt="Followers icon">
