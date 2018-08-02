@@ -19,15 +19,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.app.snappr.Entity.Comment;
 import com.app.snappr.Entity.CommentDisplay;
 import com.app.snappr.Entity.FileUploadUtility;
+import com.app.snappr.Entity.Likes;
 import com.app.snappr.Entity.Post;
 import com.app.snappr.Entity.User;
 import com.app.snappr.Entity.UserValidator;
 import com.app.snappr.Service.CommentService;
+import com.app.snappr.Service.LikeService;
 import com.app.snappr.Service.PostService;
 import com.app.snappr.Service.UserService;
 import com.cloudinary.Cloudinary;
@@ -43,6 +46,8 @@ public class WebController {
 	PostService postService;
 	@Autowired
 	CommentService commentService;
+	@Autowired
+	LikeService likeService;
 	
 	@RequestMapping(value={"/","/index"})
 	public ModelAndView showHome(@RequestParam(name = "login", required = false) String login)
@@ -170,6 +175,22 @@ public class WebController {
 		return mv;
 	}
 	
+	@RequestMapping(value="/picPage")
+	public ModelAndView uploadPic()
+	{
+		ModelAndView mv = new ModelAndView("picUpload");
+		return mv;
+	}
+	
+	@RequestMapping(value="/handlePicUpload")
+	public ModelAndView handlePicUpload(@RequestParam("file1")MultipartFile file,HttpServletRequest request)
+	{
+		String s = FileUploadUtility.uploadFile(request, file, "abcd");
+		System.out.println(s);
+		ModelAndView mv = new ModelAndView("picUpload");
+		return mv;
+	}
+	
 	@RequestMapping(value="/test/ajax")
 	@ResponseBody
 	public List<User> fetchUser(@RequestParam("start") int start,@RequestParam("limit") int limit)
@@ -224,5 +245,55 @@ public class WebController {
 		boolean b = commentService.removeComment(comment);
 		return "success";
 
+	}
+	
+	@RequestMapping(value="/updateLike")
+	@ResponseBody
+	public String updateLike(@RequestParam("id") int postId,@RequestParam("like_count") int like)
+	{
+		Post post = postService.getPostFromId(postId);
+		post.setLikes(like);
+		boolean b = postService.updateLike(post);
+		return "success";
+
+	}
+	
+	@RequestMapping(value="/getLike")
+	@ResponseBody
+	public int getLike(@RequestParam("id") int postId)
+	{
+		
+		Post post = postService.getPostFromId(postId);
+		return post.getLikes();
+	}
+	
+	@RequestMapping(value="/checkLike")
+	@ResponseBody
+	public int checkLike(@RequestParam("postid") int postId,@RequestParam("userid") int userId)
+	{
+		
+		Likes like = likeService.getLikeFromPostIdAndUserId(postId, userId);
+		if(like == null)
+			return 0;
+		else
+			return 1;
+	}
+	
+	@RequestMapping(value="/likeUpdateUrl")
+	@ResponseBody
+	public boolean likeUpdateUrl(@RequestParam("post_id") int postId,@RequestParam("user_id") int userId)
+	{
+		
+		Likes like = likeService.getLikeFromPostIdAndUserId(postId, userId);
+		if(like == null)
+		{
+			Likes likes = new Likes();
+			likes.setPost_id(postId);
+			likes.setUser_id(userId);
+			return likeService.insertLike(likes);
+		}
+			
+		else
+			return likeService.deleteLike(like);
 	}
 }

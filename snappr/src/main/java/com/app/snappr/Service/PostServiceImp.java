@@ -21,4 +21,17 @@ public class PostServiceImp implements PostService{
 		return postDAO.getPostListFromUserId(id);
 	}
 
+	@Override
+	public boolean updateLike(Post post) {
+		// TODO Auto-generated method stub
+		return postDAO.updateLike(post);
+	}
+
+	@Override
+	public Post getPostFromId(int id) {
+		// TODO Auto-generated method stub
+		return postDAO.getPostFromId(id);
+	}
+
+
 }

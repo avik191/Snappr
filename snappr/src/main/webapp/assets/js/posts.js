@@ -24,30 +24,8 @@
         elements.$overlay.fadeOut(300);
     });
 
-//    elements.$postDelete.click(function(){
-//        var $parent = $(this).parent();
-//        $parent.fadeOut(300);
-//        setTimeout(function(){
-//            $parent.remove();
-//        }, 400);
-//    });
 
-    elements.$likeButton.click(function(){
-        var status = $(this).attr("data-status");
-        var $el = $(this);
 
-        if(status == "active"){
-            $el.attr("src", window.contextRoot+"/resources/images/like_inactive.png");
-            $el.attr("data-status", "inactive");
-            elements.$likeCount.text( +elements.$likeCount.text() - 1);
-            console.log(window.contextRoot+"/resources/images/like_inactive.png");
-        }
-        else{
-            $el.attr("src", window.contextRoot+"/resources/images/like.png");
-            $el.attr("data-status", "active");
-            elements.$likeCount.text( +elements.$likeCount.text() + 1);
-        }
-    });
 
     elements.$commentButton.click(function(){
         elements.$commentBox.focus();
