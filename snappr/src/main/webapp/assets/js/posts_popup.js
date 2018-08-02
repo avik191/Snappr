@@ -80,8 +80,10 @@ function removeComment(commentId,el)
 	});
 }
 
-function loadComments(post_id,user_id,description,date,location)
+function loadComments(post_id,user_id,description,date,location,likes)
 {
+	$('.post-image-caption-container').html('');
+	$('.post-image-comments-container').html('');
 		postId = post_id;
     	var s='';
     	var poster_name='';
@@ -135,10 +137,16 @@ function loadComments(post_id,user_id,description,date,location)
     		        data[i].username+
     		        '</span><span class="post-comment-text">'+
     		        data[i].description+
-    		        '</span><div class="post-comment-delete" onclick="removeComment('+data[i].id+',this)">'+				            
-    			        'Delete</div>'+
+    		        '</span>';
+    			   
+    			   if(user_id == elements.$current_user_Id.val())
+    			   {
+    				  str+= '<div class="post-comment-delete" onclick="removeComment('+data[i].id+',this)">'+				            
+   			        'Delete</div>';
+    			   }
     		        
-    		    '</div>';
+    		        
+    			   str+= '</div>';
     			   
 
     	   		}
@@ -149,4 +157,98 @@ function loadComments(post_id,user_id,description,date,location)
     		   
     	   }
     	  });
+    	  
+    	  checkLike(postId,elements.$current_user_Id.val());
+    	  getLikeCount(postId);
     }
+
+elements.$likeButton.click(function(){
+var status = $(this).attr("data-status");
+var $el = $(this);
+
+if(status == "active"){
+  $el.attr("src", window.contextRoot+"/resources/images/like_inactive.png");
+  $el.attr("data-status", "inactive");
+ // elements.$likeCount.text( +elements.$likeCount.text() - 1);
+  console.log(window.contextRoot+"/resources/images/like_inactive.png");
+  updateLikes(postId,+elements.$likeCount.text() - 1);
+  updateLikeTable(postId,elements.$current_user_Id.val());
+}
+else{
+  $el.attr("src", window.contextRoot+"/resources/images/like.png");
+  $el.attr("data-status", "active");
+ // elements.$likeCount.text( +elements.$likeCount.text() + 1);
+  updateLikes(postId,+elements.$likeCount.text() + 1);
+  updateLikeTable(postId,elements.$current_user_Id.val());
+}
+});
+
+function updateLikes(post_id,like)
+{
+	var updateUrl = '/snappr/updateLike';
+	$.ajax({
+		url:updateUrl,
+	 	   method:"POST",
+	 	   data:{id:post_id,like_count:like},
+	 	   cache:false,
+	 	   success:function(data)
+	 	   {
+	 		  elements.$likeCount.text(like);
+	 	   }
+	});
+}
+
+
+function getLikeCount(post_id)
+{
+	var updateUrl = '/snappr/getLike';
+	$.ajax({
+		url:updateUrl,
+	 	   method:"POST",
+	 	   data:{id:post_id},
+	 	   cache:false,
+	 	   success:function(data)
+	 	   {
+	 			$('.post-like-count').html(data);
+	 	   }
+	});
+}
+
+function updateLikeTable(postId,userId)
+{
+	var likeUpdateUrl = '/snappr/likeUpdateUrl';
+	$.ajax({
+		url:likeUpdateUrl,
+	 	   method:"POST",
+	 	   data:{post_id:postId,user_id:userId},
+	 	   cache:false,
+	 	   success:function(data)
+	 	   {
+	 			console.log(data);
+	 	   }
+	});
+}
+
+function checkLike(post_id,user_id)
+{
+	var checkUrl = '/snappr/checkLike';
+	$.ajax({
+		url:checkUrl,
+		method:"POST",
+		data:{postid:post_id,userid:user_id},
+		cache:false,
+		success:function(data)
+		{
+			if(data==1)
+			{
+				elements.$likeButton.attr("src", window.contextRoot+"/resources/images/like.png");
+				elements.$likeButton.attr("data-status", "active");
+			}
+			else
+			{
+				elements.$likeButton.attr("src", window.contextRoot+"/resources/images/like_inactive.png");
+				elements.$likeButton.attr("data-status", "inactive");
+			}
+		}
+	});
+}
