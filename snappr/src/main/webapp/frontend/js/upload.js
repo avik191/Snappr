@@ -137,10 +137,14 @@ function initUploadPhotosButton(){
 
     function errorHandler(){
         alert("Oops! There was an error uploading the file. Please try again.");
+        resetUploadStatus();
+        $elements.$uploadButton.removeClass("upload-button-disabled");
     }
 
     function abortHandler(){
         alert("Oops! There was an error uploading the file. Please try again.");
+        resetUploadStatus();
+        $elements.$uploadButton.removeClass("upload-button-disabled");
     }
 
     function resetForm(){
