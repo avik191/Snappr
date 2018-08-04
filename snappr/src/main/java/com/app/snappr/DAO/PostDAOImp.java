@@ -17,7 +17,7 @@ public class PostDAOImp implements PostDAO{
 	
 	@Override
 	public List<Post> getPostListFromUserId(int id) {
-		String sql = "FROM Post WHERE user_id = :id";
+		String sql = "FROM Post WHERE user_id = :id ORDER BY id DESC";
 		try {
 			return sessionFactory.getCurrentSession().createQuery(sql,Post.class).setParameter("id", id).list();
 			}catch(Exception e)
@@ -51,6 +51,20 @@ public class PostDAOImp implements PostDAO{
 		{
 			e.printStackTrace();
 			return null;
+		}
+	}
+
+	@Override
+	public boolean addPost(Post post) {
+		// TODO Auto-generated method stub
+		try {
+			sessionFactory.getCurrentSession().save(post);
+			return true;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return false;
 		}
 	}
 

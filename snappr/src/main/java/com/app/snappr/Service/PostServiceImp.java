@@ -33,5 +33,11 @@ public class PostServiceImp implements PostService{
 		return postDAO.getPostFromId(id);
 	}
 
+	@Override
+	public boolean addPost(Post post) {
+		// TODO Auto-generated method stub
+		return postDAO.addPost(post);
+	}
+
 
 }

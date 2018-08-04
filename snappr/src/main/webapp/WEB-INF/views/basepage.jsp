@@ -16,6 +16,9 @@
 <head>
 
 <link rel="stylesheet" href="${css }/posts.css">
+<link rel="stylesheet" href="${css }/upload.css">
+<script src="${js }/jquery-3.3.1.js"></script>
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Snappr - ${title }</title>
 
@@ -26,6 +29,7 @@
 </head>
 <body>
 		<%@ include file="nav_left.jsp" %>
+		<%@ include file="upload.jsp" %>
 		<%@ include file="header.jsp" %>
 		
 		<c:if test="${showPosts == true }">

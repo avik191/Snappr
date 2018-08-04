@@ -3,8 +3,11 @@ package com.app.snappr.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.app.snappr.DAO.UserDAO;
 import com.app.snappr.Entity.Comment;
 import com.app.snappr.Entity.CommentDisplay;
 import com.app.snappr.Entity.FileUploadUtility;
@@ -168,6 +172,7 @@ public class WebController {
 		return mv;
 	}
 	
+	/////////////////////////////////////////////////////////
 	@RequestMapping(value="/testPage")
 	public ModelAndView test()
 	{
@@ -182,14 +187,7 @@ public class WebController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/handlePicUpload")
-	public ModelAndView handlePicUpload(@RequestParam("file1")MultipartFile file,HttpServletRequest request)
-	{
-		String s = FileUploadUtility.uploadFile(request, file, "abcd");
-		System.out.println(s);
-		ModelAndView mv = new ModelAndView("picUpload");
-		return mv;
-	}
+	
 	
 	@RequestMapping(value="/test/ajax")
 	@ResponseBody
@@ -198,6 +196,8 @@ public class WebController {
 		List<User> user = userService.getAllUsers(start,limit);
 		return user;
 	}
+	
+	///////////////////////////////////////////////////////
 	
 	@RequestMapping(value="/commentList")
 	@ResponseBody
@@ -295,5 +295,55 @@ public class WebController {
 			
 		else
 			return likeService.deleteLike(like);
+	}
+	
+	@RequestMapping(value="/handlePicUpload")
+	public String handlePicUpload(@RequestParam("file")MultipartFile file,@RequestParam("desc")String desc,@RequestParam("location")String location,HttpServletRequest request)
+	{
+		String s = FileUploadUtility.uploadFile(request, file, "abcd");
+		System.out.println(s);
+		Post post = new Post();
+		post.setDescription(desc);
+		post.setLocation(location);
+		
+		Date d = new Date();
+        String temp[] = d.toString().split(" ");
+        System.out.println(temp[1]+" "+temp[2]);
+		
+		post.setDate(temp[1]+" "+temp[2]);
+		
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("loggedUser");
+		post.setUser_id(user.getId());
+		
+		Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+				  "cloud_name", "avik191",
+				  "api_key", "115178129114887",
+				  "api_secret", "EtXCkchaXbz2l3GedKeAfaaBLdc"));
+		
+		File toUpload = new File(s);
+		Map params = ObjectUtils.asMap("public_id", "Snappr/Posts/"+UUID.randomUUID().toString().substring(26).toUpperCase());
+		Map uploadResult;
+		try {
+			uploadResult = cloudinary.uploader().upload(toUpload, params);
+			String publicId = (String) uploadResult.get("secure_url");
+			System.out.println(publicId);
+			post.setPath(publicId);
+
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
+		
+		
+		
+		boolean b = postService.addPost(post);
+		user.setPosts(user.getPosts()+1);
+		userService.updateUser(user);
+
+		return "redirect:/homePage";
 	}
 }

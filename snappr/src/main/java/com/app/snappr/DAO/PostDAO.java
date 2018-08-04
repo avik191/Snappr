@@ -9,4 +9,5 @@ public interface PostDAO {
 	List<Post> getPostListFromUserId(int id);
 	boolean updateLike(Post post);
 	Post getPostFromId(int id);
+	boolean addPost(Post post);
 }
