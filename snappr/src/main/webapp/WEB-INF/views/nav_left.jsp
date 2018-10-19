@@ -32,7 +32,7 @@
         <div class="nav-left-link-container">
             <div id="Feeds" class="nav-left-link">
                 <img src="${images }/feeds_icon.png" class="nav-left-icon" alt="Newsfeed icon">
-                <a href="" class="nav-link-label nav-left-link-text">Feeds</a>
+                <a href="${contextRoot }/homePage" class="nav-link-label nav-left-link-text">Feeds</a>
             </div>
             <div id="Posts" class="nav-left-link">
                 <img src="${images }/posts_icon.png" class="nav-left-icon" alt="Post icon">
